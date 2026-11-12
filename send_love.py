@@ -10,8 +10,8 @@ MESSAGES = [
     "Ты — лучшее, что случалось в моей жизни. Скучаю по тебе 😘"
 ]
 
-token = os.environ["BOT_TOKEN"]
-chat_id = os.environ["CHAT_ID"]
+token = os.environ["BOT_TOKEN"].strip()
+chat_id = os.environ["CHAT_ID"].strip()
 text = random.choice(MESSAGES)
 
 url = f"https://telegram.org{token}/sendMessage"
