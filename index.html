@@ -11,7 +11,7 @@
             background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
             color: #333;
             margin: 0;
-            padding: 20px;
+            padding: 20px 20px 80px 20px;
             min-height: 100vh;
             box-sizing: border-box;
             display: flex;
@@ -55,9 +55,31 @@
         .page.active { display: block; }
         ul { text-align: left; padding-left: 20px; }
         li { margin-bottom: 10px; }
+
+        /* Кнопка музыки */
+        .music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #d6336c;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(214, 51, 108, 0.4);
+            z-index: 100;
+            transition: transform 0.2s;
+        }
+        .music-btn:active { transform: scale(0.95); }
     </style>
 </head>
 <body>
+    <audio id="bgMusic" src="music.mp3" loop></audio>
+    <button id="musicToggle" class="music-btn" onclick="toggleMusic()">🎵 Включить музыку</button>
+
     <div class="nav">
         <button class="active" onclick="showPage('home', this)">Главная</button>
         <button onclick="showPage('reasons', this)">Причины</button>
@@ -79,7 +101,7 @@
         <h1>Почему я тебя люблю</h1>
         <ul>
             <li>За твою невероятную улыбку, которая освещает любой день.</li>
-<li>За то, что ты делешь меня счастливее.</li>
+<li>За то, что ты делаешь меня счастливее.</li>
 <li>За твою заботу, теплоту и поддержку.</li>
 <li>За то, что рядом с тобой я могу быть самим собой.</li>
         </ul>
@@ -95,7 +117,7 @@
     </div>
 
     <script>
-        const startDate = new Date("2026-11-06T18:41:35");
+        const startDate = new Date("2026-11-06T18:43:35");
         function updateTimer() {
             const now = new Date();
             const diff = now - startDate;
@@ -112,6 +134,21 @@
             document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             btn.classList.add('active');
+        }
+
+        const music = document.getElementById("bgMusic");
+        const musicBtn = document.getElementById("musicToggle");
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                musicBtn.innerText = "🎵 Включить музыку";
+            } else {
+                music.play();
+                musicBtn.innerText = "⏸ Пауза";
+            }
+            isPlaying = !isPlaying;
         }
 
         if (window.Telegram && window.Telegram.WebApp) {
